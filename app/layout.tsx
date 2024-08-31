@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ReactQueryClientProvider } from "@/components/commons/react-query";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    // Wrap the application in the ReactQueryClientProvider component
+    // This provides the React Query client to the entire application
+    // This can be found in components/commons/react-query.tsx
+    <ReactQueryClientProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }
